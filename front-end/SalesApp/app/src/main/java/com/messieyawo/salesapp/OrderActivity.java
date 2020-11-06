@@ -1,6 +1,6 @@
 package com.messieyawo.salesapp;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,14 +48,16 @@ public class OrderActivity extends AppCompatActivity {
     String number,usernumber;
     ImageView orderImg;
     String RproductName,RproductDescription,RproductPrice, RproductCategory, RproductImage;
-    int  RproductID,RpQty;
+    int  RproductID,RpQty,allTotal;
     String TotalQuantity;
+    ImageView totalOrder;
 
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<orderItem> orderItems;
     String total;
+    int p, allp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,6 @@ public class OrderActivity extends AppCompatActivity {
 
 
 
-
         recyclerView = findViewById(R.id.order_lv);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -79,11 +80,11 @@ public class OrderActivity extends AppCompatActivity {
 
         orderItems =  new ArrayList<>();
 
-        final String URL_DATA = "http://onlineus.info/SDG2020/SalesWeb/get_cart_data.php?mobile="+usernumber;
+        final String URL_DATA ="http://onlineus.info/SDG2020/SalesWeb/get_cart_data.php?mobile="+usernumber;
 
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading "+usernumber+" orders please wait....");
+        progressDialog.setMessage("Loading "+usernumber+"orders please wait....");
         progressDialog.show();
 
 
@@ -102,6 +103,7 @@ public class OrderActivity extends AppCompatActivity {
                                 JSONObject o = jsonArray.getJSONObject(i);
 
 
+
                                 orderItem item = new orderItem(
 
                                         RproductID  =  o.getInt("id"),
@@ -114,8 +116,14 @@ public class OrderActivity extends AppCompatActivity {
 
                                 );
 
+//                                 p = Integer.parseInt(RproductPrice);
+//                                 allp = p * RpQty;
+//                                 TextView tp = findViewById(R.id.order_total);
+//                                 tp.setText(""+allp);
 
-                                orderItems.add(item);
+
+                                        orderItems.add(item);
+
 
                             }
 
@@ -141,8 +149,57 @@ public class OrderActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
 
+//        totalOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ProceedToPay();
+//            }
+//        });
+
+    }
+
+    private void ProceedToPay() {
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Payment");
+        alert.setMessage(
+
+                "Total amount  : "
+                        + "\n"
+                        + " Price: " + RproductPrice
+                        + "\n"
+                        + "Name: " + RproductName
+                        + "\n"
+                        +"Category: "+ RpQty
+
+                        +"\n"
+                        + "---------------------------------------------- "
+                        + "\n"
+                        + "Total Amount = " + "GH₵ " + allp
+
+        );
 
 
+
+        alert.setCancelable(false);
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        alert.setPositiveButton("okay", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 
     @Override
@@ -167,13 +224,13 @@ public class OrderActivity extends AppCompatActivity {
                 return true;
 
 
-           case R.id.item_confirm:
-
-                // Ex: launching new activity/screen or show alert message
-               confirmRequest();
-
-
-                return true;
+//           case R.id.item_confirm:
+//
+//                // Ex: launching new activity/screen or show alert message
+//               confirmRequest();
+//
+//
+//                return true;
 
 
 
@@ -248,9 +305,9 @@ public class OrderActivity extends AppCompatActivity {
                         +"\n"
                         + "---------------------------------------------- "
                         + "\n"
-                        + "Conclusion " + "Thanks " + "GADS 2020"
+                        + "Conclusion " + allp + "GADS 2020"
 
-        );
+                   );
 
 
 

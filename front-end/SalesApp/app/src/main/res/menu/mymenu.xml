@@ -4,9 +4,9 @@
     <item android:id="@+id/item_cansel"
 
         android:title="Cansel Orders"/>
-    <item android:id="@+id/item_confirm"
+<!--    <item android:id="@+id/item_confirm"-->
 
-        android:title="Confirm Orders"/>
+<!--        android:title="Confirm Orders"/>-->
     <item android:id="@+id/item_back"
         android:title="Back to menu"/>
 

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.messieyawo.salesapp.PaymentActivity;
+import com.messieyawo.salesapp.PaymentActivity1;
 import com.messieyawo.salesapp.R;
 import com.messieyawo.salesapp.SingleProductActivity;
 import com.messieyawo.salesapp.categoryItem;
@@ -24,7 +26,7 @@ public class orderAdaptor extends RecyclerView.Adapter<orderAdaptor.ViewHolder>{
     String user,etUsername,etEmail;
 
 
-    ImageView  delete_image;
+    ImageView pay_image;
     public orderAdaptor(List<orderItem> orderItems, Context context) {
         this.orderItems = orderItems;
         this.context = context;
@@ -40,21 +42,21 @@ public class orderAdaptor extends RecyclerView.Adapter<orderAdaptor.ViewHolder>{
                 .inflate(R.layout.order_row,parent,false);
 
         final  ViewHolder viewHolder = new ViewHolder(v) ;
-//        viewHolder.view_container.findViewById(R.id.rootLayout).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent productIntent = new Intent(context,SingleProductActivity.class);
-//                productIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//                productIntent.putExtra("id",orderItems.get(viewHolder.getAdapterPosition()).getId());
-//                productIntent.putExtra("name",orderItems.get(viewHolder.getAdapterPosition()).getName());
-//                productIntent.putExtra("price",orderItems.get(viewHolder.getAdapterPosition()).getPrice());
-//                productIntent.putExtra("qty",orderItems.get(viewHolder.getAdapterPosition()).getQty());
-//                productIntent.putExtra("mobile",orderItems.get(viewHolder.getAdapterPosition()).getMobile());
-//
-//                context.startActivity(productIntent);
-//            }
-//        });
+        viewHolder.CheckFromCart.findViewById(R.id.payWithCart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent productIntent = new Intent(context, PaymentActivity1.class);
+                productIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                productIntent.putExtra("id",orderItems.get(viewHolder.getAdapterPosition()).getId());
+                productIntent.putExtra("name",orderItems.get(viewHolder.getAdapterPosition()).getName());
+                productIntent.putExtra("price",orderItems.get(viewHolder.getAdapterPosition()).getPrice());
+                productIntent.putExtra("qty",String.valueOf(orderItems.get(viewHolder.getAdapterPosition()).getQty()));
+                productIntent.putExtra("mobile",orderItems.get(viewHolder.getAdapterPosition()).getMobile());
+
+                context.startActivity(productIntent);
+            }
+        });
 
         return viewHolder;
     }
@@ -68,7 +70,7 @@ public class orderAdaptor extends RecyclerView.Adapter<orderAdaptor.ViewHolder>{
         holder.product_name.setText(ctgItem.getName());
         holder.price.setText(ctgItem.getPrice());
         holder.qty.setText(""+ctgItem.getQty());
-        holder.mobile.setText(ctgItem.getMobile());
+       // holder.mobile.setText(ctgItem.getMobile());
 
 
 
@@ -86,7 +88,7 @@ public class orderAdaptor extends RecyclerView.Adapter<orderAdaptor.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView idItem,product_name,price,qty,mobile;
-       ImageView view_container,removeFromCart,addToCart;
+       ImageView view_container,CheckFromCart,addToCart;
         // ImageView delete_image;
 
         public ViewHolder(final View itemView) {
@@ -95,8 +97,8 @@ public class orderAdaptor extends RecyclerView.Adapter<orderAdaptor.ViewHolder>{
             product_name = itemView.findViewById(R.id.order_name);
             qty = itemView.findViewById(R.id.order_qty);
             price = itemView.findViewById(R.id.order_price);
-            delete_image = itemView.findViewById(R.id.deleteFromCart);
-            mobile= itemView.findViewById(R.id.order_mobile);
+            CheckFromCart = itemView.findViewById(R.id.payWithCart);
+           // mobile= itemView.findViewById(R.id.order_mobile);
 
           //  view_container = itemView.findViewById(R.id.rootLayout);
 

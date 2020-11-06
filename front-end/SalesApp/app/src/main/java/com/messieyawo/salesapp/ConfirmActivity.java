@@ -36,7 +36,7 @@ public class ConfirmActivity extends AppCompatActivity {
         usernumber = st.getStringExtra("number");
 
 
-        String AddAll_URL = "http://192.168.43.235/projects/SalesWeb/get_total.php?bill_no="+usernumber;
+        String AddAll_URL = "http://onlineus.info/SDG2020/SalesWeb/get_total.php?bill_no="+usernumber;
 
 
         final ProgressDialog progressDialog = new ProgressDialog(this);

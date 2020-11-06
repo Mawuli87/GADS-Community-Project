@@ -12,9 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ConfirmActivity"></activity>
+        <activity android:name=".PaymentActivity1"></activity>
+        <activity android:name=".PaymentActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ConfirmActivity" />
         <activity android:name=".OrderActivity" />
-        <activity android:name=".UserLogin">
+        <activity
+            android:name=".UserLogin"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +31,6 @@
         <activity android:name=".SingleProductActivity" />
         <activity android:name=".ProductDetailActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".RegisterActivity" />
     </application>
 
 </manifest>

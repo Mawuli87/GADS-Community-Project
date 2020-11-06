@@ -83,8 +83,8 @@ public class SingleProductActivity extends AppCompatActivity {
         pImage1 = findViewById(R.id.single_item_image);
         BuyThis = findViewById(R.id.buyThis);
 
-        SharedPreferences sp = getApplicationContext().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
-        name1 = sp.getString("number","");
+               SharedPreferences sp = getApplicationContext().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
+              name1 = sp.getString("mobile","");
 
 
         //
@@ -187,7 +187,7 @@ public class SingleProductActivity extends AppCompatActivity {
        alert.setTitle(name1 +" "+"item");
        alert.setMessage(
 
-                    "Total amount  : "
+                    "Payment of  : "+Name
                        + "\n"
                        + " Price: " + Price
                        + "\n"
@@ -218,7 +218,12 @@ public class SingleProductActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+              Intent payIntent = new Intent(SingleProductActivity.this,PaymentActivity.class);
+              payIntent.putExtra("Sprice",Price);
+              payIntent.putExtra("Sname",Name);
+              payIntent.putExtra("Sqty",String.valueOf(number[0]));
+              payIntent.putExtra("Stotal",String.valueOf(number[0]*month));
+              startActivity(payIntent);
             }
         });
         AlertDialog dialog = alert.create();
